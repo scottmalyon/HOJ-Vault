@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vault — House of Juice Trade Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0A0A0A;color:#F0E8D5;font-family:'DM Sans','Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+
+/* ── ANNOUNCEMENT BAR ── */
+.ann-bar{background:#00C67A;color:#000;text-align:center;padding:11px 24px;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.ann-bar span{opacity:.65;margin:0 8px}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:200;background:rgba(10,10,10,.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:58px}
+.nav-brand{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.12em;color:#F0E8D5}
+.nav-brand em{color:#00C67A;font-style:normal}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-link{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#999;text-decoration:none;transition:color .2s}
+.nav-link:hover{color:#F0E8D5}
+.nav-cta{background:#00C67A;color:#000;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;padding:10px 20px;border-radius:2px;cursor:pointer;text-decoration:none;transition:background .2s;white-space:nowrap}
+.nav-cta:hover{background:#009D62}
+
+/* ── HERO ── */
+.hero{padding:96px 40px 80px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:64px;align-items:start}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#00C67A;margin-bottom:20px}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:110px;line-height:.9;letter-spacing:.05em;text-transform:uppercase;color:#F0E8D5;margin-bottom:24px}
+.hero-h1 .sub-word{color:rgba(255,255,255,.12)}
+.hero-deck{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-style:italic;color:#D4CCC0;line-height:1.5;margin-bottom:32px;max-width:560px}
+.hero-body{font-size:14px;color:#C0B8A8;line-height:1.8;max-width:520px;margin-bottom:36px}
+.hero-cta-row{display:flex;align-items:center;gap:20px}
+.btn-primary{background:#00C67A;color:#000;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;padding:15px 28px;border-radius:2px;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s}
+.btn-primary:hover{background:#009D62}
+.btn-ghost{font-size:12px;font-weight:500;color:#999;text-decoration:none;display:flex;align-items:center;gap:5px;transition:color .2s}
+.btn-ghost:hover{color:#F0E8D5}
+
+/* HERO CARD */
+.hero-card{background:#141414;border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:36px;position:sticky;top:72px}
+.hero-card-label{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#00C67A;margin-bottom:16px}
+.price-big{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;letter-spacing:.03em;color:#F0E8D5}
+.price-period{font-size:12px;color:#888;margin-bottom:4px}
+.price-note{font-size:11px;color:#00C67A;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:28px}
+.card-divider{border:none;border-top:1px solid rgba(255,255,255,.06);margin:20px 0}
+.card-feature{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#D4CCC0;line-height:1.5;margin-bottom:10px}
+.card-feature-check{color:#00C67A;font-weight:700;flex-shrink:0}
+.card-action{display:block;background:#00C67A;color:#000;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;padding:14px 20px;border-radius:2px;cursor:pointer;text-decoration:none;text-align:center;margin-top:24px;transition:background .2s;width:100%}
+.card-action:hover{background:#009D62}
+.card-small-note{font-size:11px;color:#444;margin-top:12px;text-align:center;line-height:1.6}
+
+/* ── STATS BAR ── */
+.stats-bar{background:#141414;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:40px}
+.stats-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.stat-item{text-align:center}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:52px;color:#00C67A;letter-spacing:.04em;line-height:1;display:block}
+.stat-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#888;margin-top:6px;display:block}
+
+/* ── REALITY SECTION ── */
+.reality{background:#0D0D0D;border-top:1px solid rgba(255,255,255,.04)}
+.reality-inner{max-width:1200px;margin:0 auto;padding:96px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#00C67A;margin-bottom:16px}
+.section-h2{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;letter-spacing:.06em;text-transform:uppercase;color:#F0E8D5;margin-bottom:20px}
+.section-body{font-size:14px;color:#C0B8A8;line-height:1.9;margin-bottom:16px}
+.reality-cards{display:flex;flex-direction:column;gap:12px}
+.reality-card{background:#141414;border:1px solid rgba(255,255,255,.05);border-left:3px solid #00C67A;border-radius:2px;padding:20px 24px}
+.reality-card-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#00C67A;letter-spacing:.04em;line-height:1;margin-bottom:4px}
+.reality-card-desc{font-size:13px;color:#BBBBBB;line-height:1.5}
+.reality-card-desc strong{color:#F0E8D5;font-weight:600}
+
+/* ── TOOLS SECTION ── */
+.tools-section{padding:96px 40px;max-width:1200px;margin:0 auto}
+.tools-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:20px}
+.tools-count{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.1em;color:#00C67A}
+
+/* Category tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:36px;flex-wrap:wrap}
+.tab{background:none;border:none;border-bottom:2px solid transparent;padding:11px 18px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#555;cursor:pointer;margin-bottom:-1px;transition:color .2s,border-color .2s}
+.tab:hover{color:#BBBBBB}
+.tab.active{color:#00C67A;border-bottom-color:#00C67A}
+
+/* Tool grid */
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tool-card{background:#141414;border:1px solid rgba(255,255,255,.06);border-radius:4px;padding:26px;cursor:pointer;transition:border-color .2s,background .2s;position:relative;display:flex;flex-direction:column}
+.tool-card:hover{border-color:rgba(0,198,122,.35);background:rgba(0,198,122,.03)}
+.tool-card.hidden{display:none}
+.tool-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:rgba(255,255,255,.2);letter-spacing:.04em;line-height:1;margin-bottom:14px}
+.new-badge{display:inline-flex;align-items:center;background:#00C67A;color:#000;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-bottom:10px}
+.tool-name{font-size:16px;font-weight:600;color:#F0E8D5;line-height:1.3;margin-bottom:8px}
+.tool-tagline{font-size:12px;color:#AAAAAA;line-height:1.6;margin-bottom:16px;flex:1}
+.tool-footer{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid rgba(255,255,255,.05)}
+.tool-cat{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#888}
+.tool-arrow{color:#00C67A;font-size:14px;transition:transform .2s}
+.tool-card:hover .tool-arrow{transform:translateX(3px)}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
+.modal-overlay.open{display:flex}
+.modal{background:#111;border:1px solid rgba(255,255,255,.08);border-radius:4px;width:100%;max-width:820px;margin:auto;overflow:hidden;animation:modalIn .2s ease-out}
+@keyframes modalIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.modal-header{background:#141414;border-bottom:1px solid rgba(255,255,255,.06);padding:28px 36px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.modal-header-left{}
+.modal-eyebrow{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#00C67A;margin-bottom:8px}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:.06em;color:#F0E8D5;line-height:1}
+.modal-close{background:none;border:none;color:#555;font-size:24px;cursor:pointer;flex-shrink:0;padding:4px;transition:color .2s;line-height:1}
+.modal-close:hover{color:#F0E8D5}
+.modal-body{padding:36px;overflow-y:auto}
+
+/* Modal content styles */
+.m-section-label{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#00C67A;margin-bottom:8px;margin-top:28px}
+.m-section-label:first-child{margin-top:0}
+.m-rule{background:#0D2B1F;border-left:4px solid #00C67A;border-radius:0 4px 4px 0;padding:16px 20px;font-size:15px;line-height:1.8;font-style:italic;font-weight:600;color:#F0E8D5;margin-bottom:12px}
+.m-info{background:#1A1A1A;border-radius:4px;padding:14px 18px;font-size:13px;color:#D4CCC0;line-height:1.7;margin-bottom:10px}
+.m-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px}
+.m-table th{background:#00C67A;color:#000;padding:9px 12px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.06em}
+.m-table td{padding:9px 12px;border-bottom:1px solid #1E1E1E;color:#D4CCC0;vertical-align:top}
+.m-table tr:nth-child(even) td{background:#141414}
+.m-table tr:nth-child(odd) td{background:#111}
+.m-table tr:last-child td{border-bottom:none}
+.m-step{display:flex;gap:16px;align-items:flex-start;margin-bottom:20px}
+.m-step-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#00C67A;line-height:1;flex-shrink:0;width:36px}
+.m-step-content{}
+.m-step-title{font-size:15px;font-weight:700;color:#F0E8D5;margin-bottom:4px}
+.m-step-body{font-size:13px;color:#BBBBBB;line-height:1.7}
+.m-highlight-box{background:#0D2B1F;border:1px solid rgba(0,198,122,.2);border-radius:4px;padding:20px 24px;margin-bottom:12px}
+.m-highlight-box .label{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#00C67A;margin-bottom:6px}
+.m-highlight-box .value{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#F0E8D5;letter-spacing:.04em}
+.m-highlight-box .desc{font-size:12px;color:#888;margin-top:3px}
+
+/* Interactive calculator */
+.calc-box{background:#141414;border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:24px;margin-top:8px}
+.calc-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-bottom:6px;display:block}
+.calc-input{width:100%;background:#0A0A0A;border:1px solid rgba(255,255,255,.1);border-radius:2px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:15px;color:#F0E8D5;outline:none;transition:border-color .2s}
+.calc-input:focus{border-color:#00C67A}
+select.calc-input{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+select.calc-input option{background:#141414;color:#F0E8D5}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.calc-result{background:#0D2B1F;border:1px solid rgba(0,198,122,.25);border-radius:4px;padding:16px 20px;margin-top:16px;display:flex;align-items:center;justify-content:space-between}
+.calc-result-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#00C67A}
+.calc-result-value{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#00C67A;letter-spacing:.04em}
+
+/* Interactive checklist */
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer}
+.check-item:last-child{border-bottom:none}
+.check-box{width:20px;height:20px;border:1px solid rgba(255,255,255,.15);border-radius:2px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.check-box.checked{background:#00C67A;border-color:#00C67A}
+.check-box.checked::after{content:'✓';font-size:11px;color:#000;font-weight:700}
+.check-text{font-size:13px;color:#D4CCC0;line-height:1.5}
+.check-score-bar{height:6px;background:rgba(255,255,255,.06);border-radius:3px;margin-top:20px;overflow:hidden}
+.check-score-fill{height:100%;background:#00C67A;border-radius:3px;transition:width .4s ease}
+.score-display{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:#888}
+
+/* ── ABOUT SECTION ── */
+.about-section{background:#0D0D0D;border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04)}
+.about-inner{max-width:1200px;margin:0 auto;padding:96px 40px;display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:start}
+.about-quote{font-family:'DM Serif Display',Georgia,serif;font-size:26px;font-style:italic;color:#F0E8D5;line-height:1.5;border-left:3px solid #00C67A;padding-left:24px;margin-bottom:32px}
+.cred-list{list-style:none;display:flex;flex-direction:column;gap:0}
+.cred-item{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.cred-item:last-child{border-bottom:none}
+.cred-dot{width:5px;height:5px;border-radius:50%;background:#00C67A;flex-shrink:0;margin-top:9px}
+.cred-text{font-size:13px;color:#C0B8A8;line-height:1.6}
+.cred-text strong{color:#F0E8D5;font-weight:600}
+.proof-logos{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-top:32px;border:1px solid rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+.proof-logo{flex:1;text-align:center;padding:16px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#777;border-right:1px solid rgba(255,255,255,.06)}
+.proof-logo:last-child{border-right:none}
+.proof-label{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#777;margin-bottom:16px}
+.scott-card{background:#141414;border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:32px}
+.scott-name{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:.06em;color:#F0E8D5;line-height:1;margin-bottom:4px}
+.scott-role{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#00C67A;margin-bottom:20px}
+.scott-body{font-size:13px;color:#C0B8A8;line-height:1.8;margin-bottom:20px}
+.scott-contact{font-size:12px;color:#888;line-height:1.7}
+.scott-contact a{color:#00C67A;text-decoration:none}
+
+/* ── WHATS NEXT ── */
+.next-section{padding:96px 40px;max-width:1200px;margin:0 auto}
+.next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.next-card{background:#141414;border:1px solid rgba(255,255,255,.06);border-radius:4px;padding:28px;transition:border-color .2s}
+.next-card:hover{border-color:rgba(0,198,122,.25)}
+.next-card-label{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#00C67A;margin-bottom:12px}
+.next-card-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.06em;color:#F0E8D5;margin-bottom:10px}
+.next-card-body{font-size:13px;color:#C0B8A8;line-height:1.7;margin-bottom:16px}
+.next-card-price{font-size:12px;font-weight:700;letter-spacing:.06em;color:#D4CCC0}
+
+/* ── FINAL CTA ── */
+.final-cta-section{background:#141414;border-top:1px solid rgba(255,255,255,.06)}
+.final-cta-inner{max-width:800px;margin:0 auto;padding:96px 40px;text-align:center}
+.final-cta-h{font-family:'Bebas Neue',sans-serif;font-size:72px;letter-spacing:.06em;text-transform:uppercase;color:#F0E8D5;line-height:1;margin-bottom:20px}
+.final-cta-sub{font-size:15px;color:#C0B8A8;line-height:1.8;margin-bottom:40px;max-width:540px;margin-left:auto;margin-right:auto}
+.final-cta-note{font-size:12px;color:#888;margin-top:20px}
+
+/* ── FOOTER ── */
+footer{background:#0A0A0A;border-top:1px solid rgba(255,255,255,.06);padding:40px;margin-top:0}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-brand{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.1em;color:#F0E8D5}
+.footer-brand em{color:#00C67A;font-style:normal}
+.footer-note{font-size:11px;color:#777;line-height:1.6}
+.footer-note a{color:#AAAAAA;text-decoration:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;gap:40px}
+  .hero-card{position:static}
+  .hero-h1{font-size:80px}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .reality-inner,.about-inner{grid-template-columns:1fr;gap:48px}
+  .tool-grid{grid-template-columns:repeat(2,1fr)}
+  .next-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero{padding:64px 20px 60px}
+  .hero-h1{font-size:64px}
+  .tool-grid{grid-template-columns:1fr}
+  .stats-inner{grid-template-columns:1fr 1fr}
+  .tools-section,.next-section,.included-section,.final-cta-inner{padding-left:20px;padding-right:20px}
+  .reality-inner,.about-inner{padding-left:20px;padding-right:20px}
+  .final-cta-h{font-size:52px}
+  .next-grid{grid-template-columns:1fr}
+  .calc-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann-bar">
+  Complete 15-tool vault — £15/month<span>·</span>New tools added every month<span>·</span>Cancel anytime.
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand" style="display:flex;align-items:center;gap:12px">
+    <img src="data:image/jpeg;base64,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" alt="House of Juice" style="height:34px;display:block;border-radius:2px">
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.1em;color:#F0E8D5">· <em style="color:#00C67A;font-style:normal">TRADE CLUB</em></span>
+  </div>
+  <div class="nav-links">
+    <a href="#tools" class="nav-link">The Vault</a>
+    <a href="#about" class="nav-link">About Scott</a>
+    <a href="#next" class="nav-link">What's Next</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">House of Juice · Trade Club</div>
+    <h1 class="hero-h1">THE<br><span class="sub-word">VAULT</span></h1>
+    <p class="hero-deck">Not a course. Not a newsletter. A growing vault of practical wine tools — tested in real venues, built from twenty years in the UK trade.</p>
+    <p class="hero-body">Every tool I use when operators bring me in to fix a wine programme. Staff training frameworks. BTG audit checklists. Margin calculators. Upsell systems. New tools added every month — built around the specific pressures your operation is facing right now.</p>
+    <div class="hero-cta-row">
+      <a href="#tools" class="btn-ghost">See all 15 tools →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card" id="join">
+      <div class="hero-card-label">Complete Suite — One Price</div>
+      <div class="price-big">£15</div>
+      <div class="price-period">per month</div>
+      <div class="price-note">All 15 tools included. New tools added monthly. Cancel anytime.</div>
+      <hr class="card-divider">
+      <div class="card-feature"><span class="card-feature-check">✓</span><span>All 15 tools — instant access from day one</span></div>
+      <div class="card-feature"><span class="card-feature-check">✓</span><span>New tools added regularly — always yours</span></div>
+      <div class="card-feature"><span class="card-feature-check">✓</span><span>Interactive calculators and checklists</span></div>
+      <div class="card-feature"><span class="card-feature-check">✓</span><span>Built by someone still in the trade every day</span></div>
+      <div class="card-feature"><span class="card-feature-check">✓</span><span>Direct access to Scott for questions</span></div>
+      <div class="card-feature"><span class="card-feature-check">✓</span><span>Insight Drops on Instagram</span></div>
+      <div class="card-feature"><span class="card-feature-check">✓</span><span>The Pour Over — weekly newsletter, straight to your inbox. No BS.</span></div>
+      <hr class="card-divider">
+      <div class="card-feature"><span style="color:#888;font-size:13px">✓</span><span style="color:#888;font-size:13px">Cancel the monthly subscription anytime — you keep the vault</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><span class="stat-num">15</span><span class="stat-label">Practical tools</span></div>
+    <div class="stat-item"><span class="stat-num">20</span><span class="stat-label">Years in the trade</span></div>
+    <div class="stat-item"><span class="stat-num">10+</span><span class="stat-label">Years on-trade consulting</span></div>
+    <div class="stat-item"><span class="stat-num">+1</span><span class="stat-label">New tool every month</span></div>
+  </div>
+</div>
+
+<!-- REALITY SECTION -->
+<div class="reality">
+  <div class="reality-inner">
+    <div>
+      <div class="eyebrow">UK Hospitality — 2026</div>
+      <h2 class="section-h2">YOU KNOW THE NUMBERS. WINE IS THE LEVER.</h2>
+      <p class="section-body">National Living Wage at £12.71 from April 2026. Employer NICs up. Bottle orders declining as guests choose by-the-glass. Total additional cost to UK hospitality this year: £3.4 billion.</p>
+      <p class="section-body">Most operators are looking at the problem from every angle except the one that's actually controllable: wine performance. One upsell conversation that moves a table from house to mid-tier covers your margin for that cover. The Vault gives your team the tools to make that happen consistently — not occasionally.</p>
+      <p class="section-body">Five tools in this vault were built specifically around what's happening in the market right now. No/low. English wine. BTG profitability. Wage cost offset. Private dining revenue. The problems that weren't on anyone's list three years ago and are now on everyone's P&L.</p>
+    </div>
+    <div class="reality-cards">
+      <div class="reality-card">
+        <div class="reality-card-num">£12.71</div>
+        <div class="reality-card-desc"><strong>National Living Wage from April 2026</strong> — up 4.1%. An 18–20 year-old now costs £10.85/hr. Labour is your biggest controllable cost.</div>
+      </div>
+      <div class="reality-card">
+        <div class="reality-card-num">↓ BTL</div>
+        <div class="reality-card-desc"><strong>Full-bottle orders are declining.</strong> Guests want by-the-glass, carafes, and choice. Your BTG programme is now your primary wine revenue engine.</div>
+      </div>
+      <div class="reality-card">
+        <div class="reality-card-num">+28%</div>
+        <div class="reality-card-desc"><strong>No/low alcohol growth</strong> — and most venues are handling it badly. A credible no/low selection protects covers and adds margin.</div>
+      </div>
+      <div class="reality-card">
+        <div class="reality-card-num">↑ ENG</div>
+        <div class="reality-card-desc"><strong>English wine is the most powerful story on a UK list right now.</strong> Operators who can tell it command premium pricing and genuine loyalty.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS SECTION -->
+<section class="tools-section" id="tools">
+  <div class="tools-header">
+    <div>
+      <div class="eyebrow">The Vault</div>
+      <h2 class="section-h2">15 TOOLS. EVERYTHING YOUR WINE PROGRAMME NEEDS.</h2>
+    </div>
+    <div class="tools-count" id="tool-count">15 tools</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-cat="all" onclick="filterTools('all',this)">All 15</button>
+    <button class="tab" data-cat="floor" onclick="filterTools('floor',this)">Floor Tools</button>
+    <button class="tab" data-cat="list" onclick="filterTools('list',this)">List &amp; Management</button>
+    <button class="tab" data-cat="commercial" onclick="filterTools('commercial',this)">Commercial</button>
+    <button class="tab" data-cat="new" onclick="filterTools('new',this)">New Tools ✦</button>
+  </div>
+
+  <div class="tool-grid" id="tool-grid">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<div class="about-section" id="about">
+  <div class="about-inner">
+    <div>
+      <div class="eyebrow">About Scott Malyon</div>
+      <h2 class="section-h2">FORGED IN REAL VENUES. NOT THE CLASSROOM.</h2>
+      <p class="about-quote">"I built these tools because operators kept calling me about the same problems. The wine list isn't the issue. The performance around it is."</p>
+      <ul class="cred-list">
+        <li class="cred-item"><span class="cred-dot"></span><span class="cred-text"><strong>20 years in the UK wine trade</strong> — sales, education, floor training, and commercial consulting across independent restaurants, hotel groups, and pub companies</span></li>
+        <li class="cred-item"><span class="cred-dot"></span><span class="cred-text">Paid consulting and training engagements with <strong>independent restaurants, hotel groups, and hospitality operators</strong> across the South East</span></li>
+        <li class="cred-item"><span class="cred-dot"></span><span class="cred-text"><strong>Still in the trade every day</strong> — not a retired consultant. Current market intelligence, not archived theory.</span></li>
+      </ul>
+    </div>
+    <div class="scott-card">
+      <div class="scott-name">SCOTT MALYON</div>
+      <div class="scott-role">Founder · House of Juice</div>
+      <p class="scott-body">Wine is commercial. It's the highest-margin product on your menu and the one most operators underperform on. I've spent twenty years sitting in rooms with owners who can't understand why a good list isn't making money. The answer, almost always, is the same: the list isn't the problem. The performance around it is.</p>
+      <p class="scott-body">The Vault is what I hand operators on day one of a paid engagement — distilled into fifteen tools you can implement this week, not after a two-day seminar.</p>
+      <div class="scott-contact">
+        <div>Instagram: <a href="https://instagram.com/houseofjuice">@the_house_of_juice</a></div>
+        <div>LinkedIn: House of Juice</div>
+        <div>Email: <a href="mailto:myhouseofjuice@icloud.com">myhouseofjuice@icloud.com</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT'S NEXT -->
+<section class="next-section" id="next">
+  <div class="eyebrow">Go Further</div>
+  <h2 class="section-h2">WHEN THE TOOLS AREN'T ENOUGH</h2>
+  <p class="section-body" style="max-width:640px;margin-bottom:0">The Vault solves most of what operators call me about. But a PDF can't sit in on a supplier meeting. Here's where it goes next.</p>
+  <div class="next-grid">
+    <div class="next-card">
+      <div class="next-card-label">Next Step · Written Audit</div>
+      <div class="next-card-title">THE WINE LIST AUDIT</div>
+      <p class="next-card-body">Send me your wine list and three months of sales data. I'll come back with a written audit covering margin leaks, BTG gaps, serve-size optimisation, and three specific changes that typically add 4–8% to wine GP inside a quarter. One hour of my time. Three pages back to you.</p>
+      <div class="next-card-price">From £199 · DM on LinkedIn or email myhouseofjuice@icloud.com</div>
+    </div>
+    <div class="next-card">
+      <div class="next-card-label">Next Step · In-Venue</div>
+      <div class="next-card-title">THE TRAINING DAY</div>
+      <p class="next-card-body">I come to your venue for a half or full day, built around your wine list, your menu, and the gaps I'd find sitting in on a service. Tailored, practical, so the team can sell differently on their very next shift.</p>
+      <div class="next-card-price">South East England only · DM for rates and availability</div>
+    </div>
+    <div class="next-card">
+      <div class="next-card-label">Coming Soon · More Vaults</div>
+      <div class="next-card-title">THE VAULT LIBRARY</div>
+      <p class="next-card-body">This is the first of a series. Coming next: The Wine Profit Engine (the 80/15/5 framework for a list that prints money). Then The Modern Wine &amp; Food Playbook. Then The Fizzical Vault. Vault owners get priority access and preferential pricing on everything.</p>
+      <div class="next-card-price">Follow @the_house_of_juice for launch dates</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final-cta-section">
+  <div class="final-cta-inner">
+    <h2 class="final-cta-h">£15/MONTH.<br>FIFTEEN TOOLS.<br>CANCEL ANYTIME.</h2>
+    <p class="final-cta-sub">£15 a month is the margin on two glasses of house wine. One upsell conversation — a table moving from house to mid-tier — covers it in a single service. The Vault gives your team the frameworks to make that happen consistently, every service, every week.</p>
+    <p class="final-cta-note">£15/month. All 15 tools from day one, plus every new tool as it's released. Cancel anytime — you keep access for the month you've paid for.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand" style="display:flex;flex-direction:column;align-items:flex-start;gap:8px">
+      <img src="data:image/jpeg;base64,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" alt="House of Juice" style="height:72px;display:block;border-radius:2px">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.14em;color:#555">TRADE CLUB</span>
+    </div>
+    <div class="footer-note">
+      <a href="https://instagram.com/the_house_of_juice">@the_house_of_juice</a> · <a href="mailto:myhouseofjuice@icloud.com">myhouseofjuice@icloud.com</a>
+    </div>
+    <div class="footer-note">© 2026 House of Juice. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOnOverlay(event)">
+  <div class="modal" id="modal-inner">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-eyebrow" id="modal-eyebrow"></div>
+        <div class="modal-title" id="modal-title"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ── TOOL DATA ──────────────────────────────────────────────────────────────
+const TOOLS = [
+  {
+    id: 1, num: '01', cat: 'floor', isNew: false,
+    name: 'The One-Line Wine Sheet',
+    tagline: 'Give every wine one sellable sentence. Staff who can describe a wine in a single line will recommend it. Staff who can\'t — won\'t.',
+    content: () => `
+      <div class="m-section-label">The Formula</div>
+      <div class="m-info"><strong>Style or mood</strong> + <strong>Key flavour or texture</strong> + <strong>When or who it suits</strong></div>
+      <div class="m-section-label">What works</div>
+      <div class="m-rule">"Light, clean, and works with anything off the fish section. Guests come back for a second glass."</div>
+      <div class="m-rule">"Big and full. The one to push when they order the ribeye — it's the right call."</div>
+      <div class="m-rule">"Elegant and genuinely easy to drink. The bottle we'd open on a quiet Tuesday just for us."</div>
+      <div class="m-section-label">What doesn't</div>
+      <div class="m-info" style="color:#555;font-style:italic">"A complex Burgundian-style Pinot Noir with notes of red cherry, forest floor and subtle oak integration." — This means nothing to a guest choosing between two bottles.</div>
+      <div class="m-section-label">Your One-Line Wine Sheet</div>
+      <div class="m-info">Print this table and fill in one row per wine. Write exactly what your team would say on the floor.</div>
+      <table class="m-table">
+        <tr><th>Wine name</th><th>Style / colour</th><th>Your one-liner</th><th>Best with</th></tr>
+        <tr><td style="color:#333;font-style:italic">e.g. Mâcon-Villages</td><td style="color:#333;font-style:italic">White, unoaked</td><td style="color:#333;font-style:italic">Light and crisp — our go-to for shellfish</td><td style="color:#333;font-style:italic">Scallops, sea bass</td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <div class="m-section-label">Three Rules</div>
+      <div class="m-step"><div class="m-step-num">01</div><div class="m-step-content"><div class="m-step-title">No tasting notes</div><div class="m-step-body">Write what you'd actually say. "Red cherry with forest floor" means nothing to a guest deciding between two bottles.</div></div></div>
+      <div class="m-step"><div class="m-step-num">02</div><div class="m-step-content"><div class="m-step-title">Test it out loud</div><div class="m-step-body">If it sounds weird when you say it — rewrite it. Every one-liner should sound natural in conversation.</div></div></div>
+      <div class="m-step"><div class="m-step-num">03</div><div class="m-step-content"><div class="m-step-title">Update it when the list changes</div><div class="m-step-body">A one-liner for a wine you no longer stock is a one-liner that damages trust.</div></div></div>
+    `
+  },
+  {
+    id: 2, num: '02', cat: 'list', isNew: false,
+    name: 'BTG Audit Checklist',
+    tagline: 'Score your by-the-glass list against 10 criteria. The gaps are where your money is going.',
+    content: () => `
+      <div class="m-section-label">Interactive Scoring — tick each criteria you score 4 or 5 on</div>
+      <div id="btg-checklist">
+        ${[
+          ['Price ladder', 'Do you have 3–4 clear price points with logical steps between them?'],
+          ['Style balance', 'Do you offer light, medium and full-bodied options across red and white?'],
+          ['Value wine', 'Is there a wine that clearly overdelivers at its price point?'],
+          ['Premium option', 'Do you have at least one wine guests can trade up to?'],
+          ['Staff sellability', 'Can every team member describe each wine in one sentence?'],
+          ['Food alignment', 'Does at least one BTG wine pair naturally with your most popular dishes?'],
+          ['Seasonal relevance', 'Is the list appropriate for the current season and your guest profile?'],
+          ['Margin check', 'Do you know the GP on every wine on your BTG list?'],
+          ['List freshness', 'Has the list been reviewed in the last 3 months?'],
+          ['Guest navigation', 'Could a guest understand your BTG list without asking for help?'],
+        ].map((c,i) => `<div class="check-item" onclick="toggleCheck(this)" data-i="${i}">
+          <div class="check-box"></div>
+          <div><div class="check-text" style="font-weight:600;color:#BBBBBB;margin-bottom:2px">${c[0]}</div><div class="check-text">${c[1]}</div></div>
+        </div>`).join('')}
+      </div>
+      <div class="check-score-bar"><div class="check-score-fill" id="btg-fill" style="width:0%"></div></div>
+      <div class="score-display"><span id="btg-score-label">0 / 10 criteria met</span><span id="btg-score-result" style="color:#00C67A;font-weight:700"></span></div>
+      <div class="m-section-label" style="margin-top:28px">Scoring Guide</div>
+      <table class="m-table">
+        <tr><th>Score</th><th>What it means</th><th>Action</th></tr>
+        <tr><td>8–10</td><td>Strong BTG list</td><td>Fine-tune only — focus on margin and premium tier</td></tr>
+        <tr><td>5–7</td><td>Solid foundations, clear gaps</td><td>Prioritise the lowest scoring criteria first</td></tr>
+        <tr><td>0–4</td><td>Needs a rebuild</td><td>Start with price ladder and style balance — everything else follows</td></tr>
+      </table>
+    `
+  },
+  {
+    id: 3, num: '03', cat: 'floor', isNew: false,
+    name: 'The Upsell Trigger Sheet',
+    tagline: 'The moments that work — and exactly what to say at each one. Timing beats technique every time.',
+    content: () => `
+      <div class="m-section-label">Trigger Moments &amp; Scripts</div>
+      <table class="m-table">
+        <tr><th>When</th><th>What's happening</th><th>What to say</th></tr>
+        <tr><td style="color:#00C67A;font-weight:600">At arrival</td><td>Guest is relaxed, open to suggestions</td><td style="font-style:italic">"Can I get you something to drink while you look? We've got a really lovely glass of [wine] at the moment that works brilliantly as an aperitif."</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">When they order food</td><td>Guest has committed to a dish — now match the wine</td><td style="font-style:italic">"That's a great choice — we've got a [wine] that goes really well with that if you'd like a recommendation?"</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Bottle nearly empty</td><td>Natural pause, guest comfortable</td><td style="font-style:italic">"You're almost through that — would you like another bottle or shall I suggest something different to finish the meal?"</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">They ask for the list</td><td>Highest intent moment</td><td style="font-style:italic">"Happy to help — are you thinking red or white? And is this to go with food or just to drink?"</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">They order house wine</td><td>Opportunity to move them up one tier</td><td style="font-style:italic">"The house is great — we also have a [wine] for just [£X] more per glass that I think you'd really enjoy. Want to try it?"</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">End of meal</td><td>Guest is satisfied, open to one more suggestion</td><td style="font-style:italic">"Can I tempt you with a glass of something to finish? We've got a lovely [wine] that's worth trying."</td></tr>
+      </table>
+      <div class="m-section-label">Three Rules</div>
+      <div class="m-step"><div class="m-step-num">01</div><div class="m-step-content"><div class="m-step-title">Read the table first</div><div class="m-step-body">A rushed table doesn't want a wine conversation. A relaxed table does. Timing beats technique every time.</div></div></div>
+      <div class="m-step"><div class="m-step-num">02</div><div class="m-step-content"><div class="m-step-title">Make it a suggestion, not a pitch</div><div class="m-step-body">"I think you'd really enjoy" lands better than "can I upgrade you to". Language matters.</div></div></div>
+      <div class="m-step"><div class="m-step-num">03</div><div class="m-step-content"><div class="m-step-title">Know your one trade-up wine</div><div class="m-step-body">Every shift, every team member should know which wine is the one to recommend when someone wants to spend a little more.</div></div></div>
+    `
+  },
+  {
+    id: 4, num: '04', cat: 'floor', isNew: false,
+    name: 'The Guest Question Playbook',
+    tagline: 'The 15 questions guests ask most often — with confident, natural answers your team can use immediately. No tasting notes. No jargon.',
+    content: () => `
+      <div class="m-section-label">The 15 Questions</div>
+      <table class="m-table">
+        <tr><th>#</th><th>Guest asks</th><th>Your team says</th></tr>
+        <tr><td>1</td><td>What's your house wine like?</td><td>Give it a one-liner and if it's not great, offer the step-up immediately.</td></tr>
+        <tr><td>2</td><td>What would you recommend?</td><td>Ask one question back: red or white? Dry or fruity? Then give one clear recommendation.</td></tr>
+        <tr><td>3</td><td>What goes with the steak / fish / pasta?</td><td>Know your food-wine pairings for the top 5 dishes. One wine per dish. Confident, not complicated.</td></tr>
+        <tr><td>4</td><td>Is this wine dry or sweet?</td><td>Scale it: very dry, dry, off-dry, slightly sweet. Use fruit as a reference — not sugar levels.</td></tr>
+        <tr><td>5</td><td>What's the difference between these two?</td><td>Pick one thing: body, fruit, or style. One clear contrast is enough.</td></tr>
+        <tr><td>6</td><td>Is this a good wine?</td><td>Yes — and tell them why in one sentence. Never be vague or qualify it.</td></tr>
+        <tr><td>7</td><td>Can I try before I buy?</td><td>Offer a taste if policy allows. If not, describe it so vividly they don't need to.</td></tr>
+        <tr><td>8</td><td>What's a good bottle for the table?</td><td>Ask: what are people eating? Red, white or both? Budget? Then give one confident answer.</td></tr>
+        <tr><td>9</td><td>Is this wine from around here?</td><td>Know your English wines. If you stock them, be proud and specific about where they're from.</td></tr>
+        <tr><td>10</td><td>What's popular at the moment?</td><td>Have one answer ready — the wine selling best this week. Keep it current and genuine.</td></tr>
+        <tr><td>11</td><td>Is this wine heavy?</td><td>Translate to body: light, medium or full. Use a food reference to anchor it.</td></tr>
+        <tr><td>12</td><td>What does this taste like?</td><td>Three words max. Fruit, texture, finish. Never more than that unprompted.</td></tr>
+        <tr><td>13</td><td>Is this bottle worth the price?</td><td>Yes — and tell them what makes it worth it. One specific thing.</td></tr>
+        <tr><td>14</td><td>Do you have anything unusual or interesting?</td><td>Have one answer ready — your most interesting wine on the list right now. Know the story.</td></tr>
+        <tr><td>15</td><td>Can you recommend a wine under £X?</td><td>Know your best value wines at each price point. Give one option confidently, not a list.</td></tr>
+      </table>
+    `
+  },
+  {
+    id: 5, num: '05', cat: 'list', isNew: false,
+    name: 'The Supplier Meeting Checklist',
+    tagline: 'Most supplier meetings favour the supplier. Use this before, during and after every visit to take back control.',
+    content: () => `
+      <div class="m-section-label">Before the Meeting</div>
+      <table class="m-table">
+        <tr><th>Question</th><th>Why it matters</th></tr>
+        <tr><td>What do we actually need right now?</td><td>List the gaps on your current wine list before they arrive — not after.</td></tr>
+        <tr><td>What's our current spend with this supplier?</td><td>Know the number. It's your leverage.</td></tr>
+        <tr><td>What's performing and what isn't?</td><td>Pull your wine sales data for the last 3 months before they walk in.</td></tr>
+        <tr><td>What do we want to negotiate?</td><td>Decide in advance: better pricing, exclusivity, staff training, marketing support, SOR terms.</td></tr>
+        <tr><td>Are there wines we want to drop?</td><td>Have the conversation ready. Don't let slow sellers linger out of politeness.</td></tr>
+      </table>
+      <div class="m-section-label">During the Meeting</div>
+      <div class="m-rule">"Ask what's new every time. Only list what fits your offer — not what they need to move."</div>
+      <div class="m-rule">"A staff training session isn't a favour. It's part of the deal. Ask for it at the first meeting."</div>
+      <div class="m-rule">"If you're taking on a premium wine, ask what listing support comes with it. Exclusivity is on the table — if you ask."</div>
+      <div class="m-rule">"New listing you're not sure about? Always ask for SOR. If they won't offer it, that tells you something."</div>
+      <div class="m-rule">"Never commit in the room. Tell them you'll confirm within 48 hours — then actually do it."</div>
+      <div class="m-section-label">After the Meeting — What You Walk Away With</div>
+      <table class="m-table">
+        <tr><th>Action item</th><th>Notes / outcome</th></tr>
+        <tr><td>New listings agreed</td><td></td></tr>
+        <tr><td>Wines to delist</td><td></td></tr>
+        <tr><td>Pricing or terms negotiated</td><td></td></tr>
+        <tr><td>Training session booked</td><td></td></tr>
+        <tr><td>Next meeting date</td><td></td></tr>
+      </table>
+    `
+  },
+  {
+    id: 6, num: '06', cat: 'list', isNew: false,
+    name: 'Seasonal List Review Template',
+    tagline: 'Run this every quarter. Under an hour. Keeps your list commercially sharp, seasonally relevant and free of dead stock.',
+    content: () => `
+      <div class="m-section-label">Step 1 — Assess What's on the List Now</div>
+      <table class="m-table">
+        <tr><th>Wine</th><th>Selling well?</th><th>Right for the season?</th><th>Keep / Drop / Replace</th></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <div class="m-section-label">Step 2 — Seasonal Sense Check</div>
+      <table class="m-table">
+        <tr><th>Question</th><th>Spring / Summer</th><th>Autumn / Winter</th></tr>
+        <tr><td>Is your BTG list weighted to the season?</td><td>Whites, rosé, lighter reds, sparkling, English wine</td><td>Fuller reds, richer whites, warming styles, premium bottles</td></tr>
+        <tr><td>Are your food-wine pairings still aligned to the current menu?</td><td colspan="2">Check every quarter when the kitchen menu changes</td></tr>
+        <tr><td>Is there a wine that hasn't sold in 6 weeks?</td><td colspan="2">Cut it. It's costing you tied-up stock and confused staff.</td></tr>
+      </table>
+      <div class="m-section-label">Step 3 — What's Coming In</div>
+      <table class="m-table">
+        <tr><th>New wine</th><th>Why it's joining</th><th>Replacing</th><th>Staff need to know</th></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <div class="m-section-label">Three Rules</div>
+      <div class="m-step"><div class="m-step-num">01</div><div class="m-step-content"><div class="m-step-title">Drop without guilt</div><div class="m-step-body">A wine that isn't selling is costing you money in tied-up stock and confused staff. Cut it.</div></div></div>
+      <div class="m-step"><div class="m-step-num">02</div><div class="m-step-content"><div class="m-step-title">Brief the team on every change</div><div class="m-step-body">A new wine with no briefing is a wine that won't be recommended.</div></div></div>
+      <div class="m-step"><div class="m-step-num">03</div><div class="m-step-content"><div class="m-step-title">Date this sheet</div><div class="m-step-body">Keep a record of each seasonal review so you can track what changed and why.</div></div></div>
+    `
+  },
+  {
+    id: 7, num: '07', cat: 'commercial', isNew: false,
+    name: 'The Margin Calculator',
+    tagline: 'Check every wine on your list is priced correctly for the GP you need. Most operators are underpricing by 5–15% without knowing it.',
+    content: () => `
+      <div class="m-section-label">The Formula</div>
+      <div class="m-info">Cost price ÷ (1 − target GP%) = minimum sell price<br><br><em>Example: Bottle costs £8. Target GP is 70%. Minimum sell price = £8 ÷ 0.30 = £26.67</em></div>
+      <div class="m-section-label">Live Margin Calculator</div>
+      <div class="calc-box">
+        <div class="calc-row">
+          <div>
+            <label class="calc-label">Cost price (£)</label>
+            <input class="calc-input" type="number" id="calc-cost" placeholder="e.g. 8.00" step="0.01" oninput="calcMargin()">
+          </div>
+          <div>
+            <label class="calc-label">Sell price (£)</label>
+            <input class="calc-input" type="number" id="calc-sell" placeholder="e.g. 27.00" step="0.01" oninput="calcMargin()">
+          </div>
+        </div>
+        <div>
+          <label class="calc-label">Target GP %</label>
+          <input class="calc-input" type="number" id="calc-target" placeholder="e.g. 70" step="1" value="70" oninput="calcMargin()">
+        </div>
+        <div class="calc-result" id="calc-result" style="display:none">
+          <div>
+            <div class="calc-result-label">Actual GP</div>
+            <div style="font-size:12px;color:#555;margin-top:2px" id="calc-min-price"></div>
+          </div>
+          <div class="calc-result-value" id="calc-gp"></div>
+        </div>
+      </div>
+      <div class="m-section-label" style="margin-top:24px">Benchmark GP Targets</div>
+      <table class="m-table">
+        <tr><th>Product</th><th>Typical target GP</th><th>Notes</th></tr>
+        <tr><td>BTG wine</td><td>65–75%</td><td>Higher GP justified — convenience premium</td></tr>
+        <tr><td>Bottle — mid range</td><td>60–70%</td><td>Most venues operate here</td></tr>
+        <tr><td>Bottle — premium</td><td>55–65%</td><td>Lower % but higher absolute margin</td></tr>
+        <tr><td>House wine</td><td>70–80%</td><td>Volume driver — GP must be strong</td></tr>
+      </table>
+    `
+  },
+  {
+    id: 8, num: '08', cat: 'floor', isNew: false,
+    name: 'The Premium Trigger Sheet',
+    tagline: 'Moving guests up the list is about reading the moment and using the right language. These are the triggers that work.',
+    content: () => `
+      <div class="m-section-label">Trigger Moments</div>
+      <table class="m-table">
+        <tr><th>Trigger</th><th>Signal</th><th>Language to use</th></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Celebration or occasion</td><td>Guest mentions birthday, anniversary, promotion</td><td style="font-style:italic">"This feels like a moment for something a bit special — can I show you a couple of options that would really make the evening?"</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Premium food order</td><td>Guest orders the most expensive dish on the menu</td><td style="font-style:italic">"That's our best dish — it really deserves a wine to match. Can I suggest something that'll make it even better?"</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Already on a good bottle</td><td>Current bottle is £40+, nearly finished</td><td style="font-style:italic">"You've got great taste — if you're open to it, there's something we have that's a step up from that and I think you'd love it."</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">They ask for a recommendation</td><td>Highest intent moment — they're open</td><td style="font-style:italic">"If budget's flexible I'd point you here — it's genuinely one of the best bottles we've got at the moment."</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Large group / corporate table</td><td>Multiple bottles likely — higher spend occasion</td><td style="font-style:italic">"For a table this size I'd suggest starting with [wine] — it works for everyone and gives you a strong base to build on."</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Hesitating between two prices</td><td>Comparing a £35 and a £55 bottle</td><td style="font-style:italic">"The [more expensive] is worth the extra — the difference is noticeable and for a night like this it's the right call."</td></tr>
+      </table>
+      <div class="m-section-label">Three Rules</div>
+      <div class="m-step"><div class="m-step-num">01</div><div class="m-step-content"><div class="m-step-title">Never mention the price first</div><div class="m-step-body">Lead with the wine, the experience, or the occasion. Price comes when they ask.</div></div></div>
+      <div class="m-step"><div class="m-step-num">02</div><div class="m-step-content"><div class="m-step-title">One suggestion only</div><div class="m-step-body">Giving two premium options creates paralysis. Pick the one you'd recommend and say so.</div></div></div>
+      <div class="m-step"><div class="m-step-num">03</div><div class="m-step-content"><div class="m-step-title">Know your margin winner</div><div class="m-step-body">The premium wine you push hardest should also be your strongest GP performer.</div></div></div>
+    `
+  },
+  {
+    id: 9, num: '09', cat: 'commercial', isNew: false,
+    name: 'The Wine Training Tracker',
+    tagline: 'Track your team\'s wine knowledge development over time. Use it for appraisals, progression conversations, and identifying who needs support.',
+    content: () => `
+      <div class="m-section-label">Team Knowledge Tracker</div>
+      <div class="m-info"><em>Score each area 1–3: 1 = needs support · 2 = developing · 3 = confident</em></div>
+      <table class="m-table">
+        <tr><th>Team member</th><th>Role</th><th>BTG knowledge</th><th>Food pairing</th><th>Upselling</th><th>Last assessed</th><th>Next focus</th></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <div class="m-section-label">Individual Development Log</div>
+      <table class="m-table">
+        <tr><th>Date</th><th>Team member</th><th>Topic covered</th><th>Method</th><th>Progress noted</th></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <div class="m-section-label">Three Rules</div>
+      <div class="m-step"><div class="m-step-num">01</div><div class="m-step-content"><div class="m-step-title">Assess every new starter in week one</div><div class="m-step-body">Know their baseline before you train them.</div></div></div>
+      <div class="m-step"><div class="m-step-num">02</div><div class="m-step-content"><div class="m-step-title">Use this in appraisals</div><div class="m-step-body">Wine knowledge progression is a tangible measure of development — treat it as one.</div></div></div>
+      <div class="m-step"><div class="m-step-num">03</div><div class="m-step-content"><div class="m-step-title">Recognise progress publicly</div><div class="m-step-body">A team member who moves from 1 to 3 on upselling deserves acknowledgment.</div></div></div>
+    `
+  },
+  {
+    id: 10, num: '10', cat: 'floor', isNew: false,
+    name: 'Staff Recommendation Framework',
+    tagline: 'Four steps to get your team recommending wine naturally — without scripts, without awkwardness, without sounding like a brochure.',
+    content: () => `
+      <div class="m-step"><div class="m-step-num">01</div><div class="m-step-content"><div class="m-step-title">Ask one question</div><div class="m-step-body">Red or white? Something light or fuller bodied? Dry or a little bit fruity?<br><br>One question is enough. More than that feels like an interview. The answer tells you everything you need to make a confident recommendation.</div></div></div>
+      <div class="m-step"><div class="m-step-num">02</div><div class="m-step-content"><div class="m-step-title">Give one answer</div><div class="m-step-body">Not "well it depends" and not a list of options. One wine. The one you'd choose.<br><br><em style="color:#00C67A">"In that case I'd go with the [wine] — it's exactly what you're describing and it's one of my favourites on the list at the moment."</em></div></div></div>
+      <div class="m-step"><div class="m-step-num">03</div><div class="m-step-content"><div class="m-step-title">Add one reason</div><div class="m-step-body">Not a tasting note. One real reason.<br><br><em style="color:#00C67A">"It works brilliantly with what you're eating." "It's the one we keep recommending this week." "It's genuinely worth the extra couple of pounds."</em><br><br>One reason is memorable. Five reasons is noise.</div></div></div>
+      <div class="m-step"><div class="m-step-num">04</div><div class="m-step-content"><div class="m-step-title">Close naturally</div><div class="m-step-body">"Shall I grab you a glass?" "Want to try it?" "I'll bring it over with the menus."<br><br>Don't ask "is that okay?" — it plants doubt. Assume the yes and move forward.</div></div></div>
+      <div class="m-info" style="margin-top:8px"><strong>In the pre-service briefing:</strong> Run through one wine per shift. Ask a team member to recommend it in two sentences. Confidence sells more than knowledge.</div>
+    `
+  },
+  // ── 5 NEW TOOLS ──────────────────────────────────────────────────────────
+  {
+    id: 11, num: '11', cat: 'floor', isNew: true,
+    name: 'The No &amp; Low Selector',
+    tagline: 'The no/low category is growing faster than any other drinks segment. Most venues are leaving it as an afterthought. Here\'s how to build it properly.',
+    content: () => `
+      <div class="m-info" style="border-left:3px solid #00C67A;border-radius:0 4px 4px 0"><strong>Why this exists:</strong> No/low alcohol wine grew 28% year-on-year in the UK on-trade. Most venues are handling it badly — one token option, staff who can't describe it, and no integration with the food menu. This tool fixes all three.</div>
+      <div class="m-section-label">Step 1 — How Many Do You Need?</div>
+      <table class="m-table">
+        <tr><th>Venue type</th><th>Minimum no/low selection</th><th>Why</th></tr>
+        <tr><td>Casual dining / pub</td><td>1 white, 1 sparkling</td><td>Cover the bases; mindful drinkers are in every group</td></tr>
+        <tr><td>Fine dining / à la carte</td><td>2–3 across styles</td><td>Guests expect a credible alternative at every course</td></tr>
+        <tr><td>Hotel F&amp;B / events</td><td>Full no/low range</td><td>Corporate and health-conscious guests expect parity</td></tr>
+      </table>
+      <div class="m-section-label">Step 2 — What Styles to Stock</div>
+      <table class="m-table">
+        <tr><th>Style</th><th>What to look for</th><th>Works with</th></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Sparkling (no/low)</td><td>Dealcoholised Champagne-method or Riesling-based. Avoid ultra-sweet grape juice style.</td><td>Aperitif, celebrations, lighter starters</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">White (no/low)</td><td>Dealcoholised Riesling or Sauvignon Blanc. Needs acidity and freshness — avoid flabby styles.</td><td>Fish, salads, lighter mains</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Rosé (no/low)</td><td>Dealcoholised Provence-style. The easiest sell — guests know what to expect.</td><td>Summer menus, shared starters</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Red (no/low)</td><td>Hardest to get right. Only list if it genuinely tastes good. Don't carry it just to tick a box.</td><td>If you find a good one: red meat, burgers</td></tr>
+      </table>
+      <div class="m-section-label">Step 3 — How to Sell It</div>
+      <div class="m-rule">"This is made the same way as a standard wine — same grapes, same process, no alcohol. It's not a consolation option. It's actually good."</div>
+      <div class="m-rule">"Driving tonight, or just keeping it lighter? We've got a no/low [style] that works really well with what you're ordering."</div>
+      <div class="m-section-label">Step 4 — How to Price It</div>
+      <div class="m-info">No/low wine typically costs more per bottle to produce — don't underprice it. Apply the same GP formula as standard wine (65–75% for BTG). A credible no/low BTG wine at £8–£9 per glass is commercially correct and guest-acceptable.</div>
+      <div class="m-section-label">Your No &amp; Low Selector</div>
+      <table class="m-table">
+        <tr><th>Style</th><th>Wine / producer</th><th>BTG price</th><th>Staff one-liner</th></tr>
+        <tr><td>Sparkling</td><td></td><td></td><td></td></tr>
+        <tr><td>White</td><td></td><td></td><td></td></tr>
+        <tr><td>Rosé</td><td></td><td></td><td></td></tr>
+        <tr><td>Red (if applicable)</td><td></td><td></td><td></td></tr>
+      </table>
+    `
+  },
+  {
+    id: 12, num: '12', cat: 'list', isNew: true,
+    name: 'The English Wine Briefing Sheet',
+    tagline: 'English wine is the most powerful story on a UK list right now. Operators who can tell it command premium pricing and genuine loyalty.',
+    content: () => `
+      <div class="m-info" style="border-left:3px solid #00C67A;border-radius:0 4px 4px 0"><strong>Why this matters:</strong> English sparkling wine is now a serious commercial category — and most front-of-house teams are either ignoring it or unable to talk about it. This tool gives your team everything they need to recommend English wine with confidence, answer guest questions, and sell it as the premium product it is.</div>
+      <div class="m-section-label">The Story in One Paragraph</div>
+      <div class="m-rule">"English sparkling wine isn't a novelty anymore. Same chalk soil as Champagne. Same grapes, same method — just made here. Chapel Down, Nyetimber, Gusbourne are winning blind tastings against the French. When you pour it at the table, you're giving guests a story that's actually ours. Not borrowed from somewhere else. Made here."</div>
+      <div class="m-section-label">Regions Your Team Should Know</div>
+      <table class="m-table">
+        <tr><th>Region</th><th>What to say</th><th>Key producers to name</th></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Kent</td><td>"The Garden of England — the same chalk soil that runs under Champagne. The most established English wine county."</td><td>Chapel Down, Gusbourne</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Sussex</td><td>"The heartland of English sparkling wine. Nyetimber, Ridgeview — world-class wines made right here."</td><td>Nyetimber, Ridgeview, Rathfinny</td></tr>
+        <tr><td style="color:#00C67A;font-weight:600">Hampshire / Surrey</td><td>"Exciting still wine country — Pinot Noir and Bacchus doing really interesting things."</td><td>Camel Valley (Cornwall), Hambledon</td></tr>
+      </table>
+      <div class="m-section-label">How to Answer the Key Questions</div>
+      <table class="m-table">
+        <tr><th>Guest asks</th><th>Your team says</th></tr>
+        <tr><td>"Is English wine actually good?"</td><td>"Yes — and not just for what it is. It wins international awards against Champagne. The climate turns out to be exactly right for sparkling wine."</td></tr>
+        <tr><td>"Why is it so expensive?"</td><td>"It's grown in small quantities, mostly by hand, in a marginal climate. That's what makes it special. You're paying for the craft, not just the alcohol."</td></tr>
+        <tr><td>"How does it compare to Champagne?"</td><td>"Similar method, similar grape varieties. English sparkling tends to be fresher and leaner — a little more acid, a little more energy. Different, not lesser."</td></tr>
+        <tr><td>"What does Bacchus taste like?"</td><td>"Think Sauvignon Blanc but more English — elderflower, fresh herbs, really lively. It's our signature white grape. The one you can't get anywhere else."</td></tr>
+      </table>
+      <div class="m-section-label">Your English Wine Cheat Sheet</div>
+      <table class="m-table">
+        <tr><th>Wine on your list</th><th>Region</th><th>Style</th><th>Staff one-liner</th><th>Best with</th></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+    `
+  },
+  {
+    id: 13, num: '13', cat: 'commercial', isNew: true,
+    name: 'BTG Pour &amp; Profit Tracker',
+    tagline: 'As full-bottle orders decline, BTG is where the money is — if you\'re running it right. Most venues are losing margin to pour inconsistency and wastage.',
+    content: () => `
+      <div class="m-info" style="border-left:3px solid #00C67A;border-radius:0 4px 4px 0"><strong>Why this exists:</strong> By-the-glass is becoming the primary wine revenue channel as full-bottle orders decline. A leaky BTG programme — inconsistent pours, wrong pricing, untracked wastage — is an invisible drain on margin. Enter your numbers below to see exactly what each wine is earning.</div>
+      <div class="m-section-label">BTG Profitability Calculator</div>
+      <div class="calc-box">
+        <div class="calc-row">
+          <div>
+            <label class="calc-label">Bottle cost price (£)</label>
+            <input class="calc-input" type="number" id="btg-cost" placeholder="e.g. 7.50" step="0.01" oninput="calcBTG()">
+          </div>
+          <div>
+            <label class="calc-label">Serve size</label>
+            <select class="calc-input" id="btg-size" onchange="calcBTG()">
+              <option value="125">125ml</option>
+              <option value="175" selected>175ml</option>
+              <option value="250">250ml</option>
+              <option value="500">500ml carafe</option>
+            </select>
+          </div>
+        </div>
+        <div class="calc-row">
+          <div>
+            <label class="calc-label">Sell price per glass / carafe (£)</label>
+            <input class="calc-input" type="number" id="btg-sell" placeholder="e.g. 7.50" step="0.01" oninput="calcBTG()">
+          </div>
+          <div>
+            <label class="calc-label">Average daily pours</label>
+            <input class="calc-input" type="number" id="btg-pours" placeholder="e.g. 12" oninput="calcBTG()">
+          </div>
+        </div>
+        <div>
+          <label class="calc-label">Wastage allowance % (typically 7–10%)</label>
+          <input class="calc-input" type="number" id="btg-wastage" value="8" step="1" oninput="calcBTG()">
+        </div>
+        <div id="btg-calc-result" style="display:none;margin-top:16px">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px">
+            <div class="calc-result" style="flex-direction:column;align-items:flex-start;gap:2px">
+              <div class="calc-result-label">Cost per serve</div>
+              <div class="calc-result-value" id="btg-cost-serve" style="font-size:26px"></div>
+            </div>
+            <div class="calc-result" style="flex-direction:column;align-items:flex-start;gap:2px">
+              <div class="calc-result-label">GP%</div>
+              <div class="calc-result-value" id="btg-gp-pct" style="font-size:26px"></div>
+            </div>
+            <div class="calc-result" style="flex-direction:column;align-items:flex-start;gap:2px">
+              <div class="calc-result-label">Profit per glass</div>
+              <div class="calc-result-value" id="btg-profit-glass" style="font-size:26px"></div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="calc-result" style="flex-direction:column;align-items:flex-start;gap:2px">
+              <div class="calc-result-label">Weekly revenue</div>
+              <div class="calc-result-value" id="btg-weekly-rev" style="font-size:26px">—</div>
+              <div style="font-size:11px;color:#555">requires daily pours</div>
+            </div>
+            <div class="calc-result" style="flex-direction:column;align-items:flex-start;gap:2px">
+              <div class="calc-result-label">Weekly profit</div>
+              <div class="calc-result-value" id="btg-weekly-profit" style="font-size:26px">—</div>
+              <div style="font-size:11px;color:#555">requires daily pours</div>
+            </div>
+          </div>
+          <div id="btg-gp-warning" style="display:none;background:#1A0A0A;border-left:3px solid #F05F7C;border-radius:0 4px 4px 0;padding:10px 14px;margin-top:12px;font-size:12px;color:#BBBBBB;line-height:1.6"></div>
+        </div>
+      </div>
+      <div class="m-section-label" style="margin-top:24px">Serve Size Reference</div>
+      <table class="m-table">
+        <tr><th>Serve size</th><th>Pours per 750ml bottle</th><th>With 8% wastage</th></tr>
+        <tr><td>125ml</td><td>6.0</td><td>5.5</td></tr>
+        <tr><td>175ml</td><td>4.3</td><td>3.9</td></tr>
+        <tr><td>250ml</td><td>3.0</td><td>2.8</td></tr>
+        <tr><td>500ml carafe</td><td>1.5</td><td>1.4</td></tr>
+      </table>
+      <div class="m-section-label">Wastage Audit — Do This Weekly</div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Count all open bottles at close of service — note volume remaining</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Check that poured volumes match EPoS sales data for the session</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Confirm staff are using measured pourers — not free-pouring BTG wine</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Check any opened bottles are stored correctly (vacuum sealed, refrigerated where relevant)</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Review which wines consistently have wastage — consider serve size or delistment</div></div>
+      <div class="m-section-label">The Carafe Opportunity</div>
+      <div class="m-info"><strong>Why carafes work:</strong> A 500ml carafe (two-thirds of a bottle) gives guests who don't want a full bottle a premium option. Priced correctly, it improves GP vs bottle-serving and reduces wastage. Position it on the list as a choice, not a consolation. "We also offer a carafe — perfect if you'd like to try a couple of different wines this evening."</div>
+    `
+  },
+  {
+    id: 14, num: '14', cat: 'commercial', isNew: true,
+    name: 'Wage Cost Wine Offset Calculator',
+    tagline: 'NLW at £12.71 from April 2026. This calculator frames the question every GM should be asking: how much extra wine revenue do you need to offset the rise?',
+    content: () => `
+      <div class="m-info" style="border-left:3px solid #00C67A;border-radius:0 4px 4px 0"><strong>Why this exists:</strong> Labour is the biggest cost increase UK hospitality is absorbing right now. The NLW at £12.71 (April 2026), employer NICs up, and pension auto-enrolment changes add an estimated £3.4bn annually across the sector. Wine — your highest-margin product — is the most accessible lever to offset it.</div>
+      <div class="m-section-label">Your Wage Cost Increase — Calculate It Here</div>
+      <div class="calc-box">
+        <div class="calc-row">
+          <div>
+            <label class="calc-label">Number of NLW staff</label>
+            <input class="calc-input" type="number" id="wage-staff" placeholder="e.g. 8" oninput="calcWage()">
+          </div>
+          <div>
+            <label class="calc-label">Average hours/week per person</label>
+            <input class="calc-input" type="number" id="wage-hours" placeholder="e.g. 25" oninput="calcWage()">
+          </div>
+        </div>
+        <div class="calc-row">
+          <div>
+            <label class="calc-label">Previous hourly rate (£)</label>
+            <input class="calc-input" type="number" id="wage-old" placeholder="e.g. 11.44" step="0.01" oninput="calcWage()">
+          </div>
+          <div>
+            <label class="calc-label">Average wine GP% (e.g. 65)</label>
+            <input class="calc-input" type="number" id="wage-gp" placeholder="e.g. 65" value="65" oninput="calcWage()">
+          </div>
+        </div>
+        <div class="calc-result" id="wage-result" style="display:none">
+          <div>
+            <div class="calc-result-label">Extra wine revenue needed / week</div>
+            <div style="font-size:12px;color:#555;margin-top:2px" id="wage-breakdown"></div>
+          </div>
+          <div class="calc-result-value" id="wage-value"></div>
+        </div>
+      </div>
+      <div class="m-section-label" style="margin-top:24px">What That Looks Like in Practice</div>
+      <table class="m-table">
+        <tr><th>Extra revenue target / week</th><th>What it takes</th></tr>
+        <tr><td>£200</td><td>~4 tables moving from house to mid-tier wine (£15 trade-up per table)</td></tr>
+        <tr><td>£400</td><td>~8 upsell conversations that land, or 2 premium bottles sold per day</td></tr>
+        <tr><td>£600</td><td>One extra wine sale per service across 6 services — realistic with the right training</td></tr>
+      </table>
+      <div class="m-info"><strong>The point:</strong> The wage increase feels like a cost problem. The Vault turns it into a revenue challenge. Use the Upsell Trigger Sheet (Tool 03), the Premium Trigger Sheet (Tool 08), and the Staff Recommendation Framework (Tool 10) to close the gap.</div>
+    `
+  },
+  {
+    id: 15, num: '15', cat: 'commercial', isNew: true,
+    name: 'Private Dining Wine Proposal Template',
+    tagline: 'Events and private dining are where margins survive in 2026. This ready-to-send template adds wine revenue to every private booking.',
+    content: () => `
+      <div class="m-info" style="border-left:3px solid #00C67A;border-radius:0 4px 4px 0"><strong>Why this exists:</strong> Many operators are pivoting to events revenue to offset reduced casual covers. But private dining wine is frequently undervalued — guests are quoted "wine available from the list" rather than a structured package. This template gives you a professional wine proposal that adds clear per-head revenue to every private booking.</div>
+      <div class="m-section-label">Wine Package Pricing Formula</div>
+      <div class="m-info">
+        <strong>House package:</strong> 1 white + 1 red (house wine), half bottle per head = cost × 2.8 markup minimum<br>
+        <strong>Mid package:</strong> 1 white + 1 red (mid-tier), half bottle per head = cost × 3 markup<br>
+        <strong>Premium package:</strong> Curated selection, sommelier pours, full bottle equivalent per head = cost × 3.5+ markup<br><br>
+        Add 12.5% service on all wine sold as part of a private package — this is standard and guests expect it.
+      </div>
+      <div class="m-section-label">The Proposal Template — Send with Every Private Booking Confirmation</div>
+      <div class="m-rule" style="font-style:normal;line-height:2">
+        <strong>Subject: [Venue name] Private Dining — Wine Options for [Guest name / occasion]</strong><br><br>
+        Dear [Name],<br><br>
+        Thank you for your booking — we're looking forward to hosting [occasion/event] on [date].<br><br>
+        As part of your private dining experience, we've put together three wine options for your consideration. All packages include service and are priced per head based on your confirmed guest number of [X].<br><br>
+        <strong>Option 1 — House Selection · £[X] per head</strong><br>
+        A curated house white and red, paired to your menu. Half bottle equivalent per head.<br><br>
+        <strong>Option 2 — Signature Selection · £[X] per head</strong><br>
+        Our recommended mid-range wines matched to each course. Served throughout the meal. Full bottle equivalent per head.<br><br>
+        <strong>Option 3 — Premium Selection · £[X] per head</strong><br>
+        A bespoke wine selection — we'll match each course to a specific wine from our cellar, including a sparkling welcome drink. Full bottle equivalent per head, with optional dessert wine addition.<br><br>
+        If you'd prefer to choose from our wine list on the night, we're happy to arrange that instead — our sommelier can advise your guests directly.<br><br>
+        Please let us know which option works best, or if you have any specific requests. We're happy to discuss alternatives.<br><br>
+        Looking forward to it.<br>
+        [Name] · [Venue]
+      </div>
+      <div class="m-section-label">How to Price Each Package</div>
+      <table class="m-table">
+        <tr><th>Package</th><th>Wine cost per head</th><th>Target sell price / head</th><th>GP target</th></tr>
+        <tr><td>House</td><td>£5–8</td><td>£18–22</td><td>65–70%</td></tr>
+        <tr><td>Signature</td><td>£9–14</td><td>£28–36</td><td>65–68%</td></tr>
+        <tr><td>Premium</td><td>£16–24</td><td>£50–70</td><td>60–65%</td></tr>
+      </table>
+      <div class="m-section-label">Three Rules</div>
+      <div class="m-step"><div class="m-step-num">01</div><div class="m-step-content"><div class="m-step-title">Send the proposal before they confirm</div><div class="m-step-body">If you wait until they arrive to mention wine packages, you've lost the opportunity. Include it in the first confirmation email.</div></div></div>
+      <div class="m-step"><div class="m-step-num">02</div><div class="m-step-content"><div class="m-step-title">Give them three options</div><div class="m-step-body">One option invites a yes or no. Three options invite a choice. Most groups land on the middle package — price it accordingly.</div></div></div>
+      <div class="m-step"><div class="m-step-num">03</div><div class="m-step-content"><div class="m-step-title">Always add service</div><div class="m-step-body">12.5% service on wine packages is standard. Don't absorb it — guests expecting a private dining experience expect to pay it.</div></div></div>
+    `
+  },
+];
+
+// ── RENDER & FILTER ───────────────────────────────────────────────────────
+function catLabel(cat) {
+  return {floor:'Floor',list:'List & Mgmt',commercial:'Commercial'}[cat] || cat;
+}
+
+function renderTools(filter) {
+  const grid = document.getElementById('tool-grid');
+  let shown = 0;
+  grid.innerHTML = TOOLS.map(t => {
+    const visible = filter === 'all' || t.cat === filter || (filter === 'new' && t.isNew);
+    if (visible) shown++;
+    return `<div class="tool-card${t.isNew ? ' new-tool' : ''}${visible ? '' : ' hidden'}" onclick="openTool(${t.id})">
+      <div class="tool-num">${t.num}</div>
+      <div class="tool-name">${t.name}</div>
+      <div class="tool-tagline">${t.tagline}</div>
+      <div class="tool-footer">
+        <span class="tool-cat">${catLabel(t.cat)}</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('tool-count').textContent = `${shown} tool${shown !== 1 ? 's' : ''}`;
+}
+
+function filterTools(cat, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderTools(cat);
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────
+function openTool(id) {
+  const t = TOOLS.find(x => x.id === id);
+  if (!t) return;
+  document.getElementById('modal-eyebrow').textContent = `Tool ${t.num} of 15 · ${catLabel(t.cat)}`;
+  document.getElementById('modal-title').textContent = t.name.replace(/&amp;/g,'&');
+  document.getElementById('modal-body').innerHTML = t.content();
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOnOverlay(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── INTERACTIVE CHECKLIST ─────────────────────────────────────────────────
+function toggleCheck(el) {
+  const box = el.querySelector('.check-box');
+  box.classList.toggle('checked');
+  const container = el.closest('#btg-checklist');
+  if (!container) return;
+  const total = container.querySelectorAll('.check-item').length;
+  const checked = container.querySelectorAll('.check-box.checked').length;
+  const pct = (checked / total) * 100;
+  const fill = document.getElementById('btg-fill');
+  const label = document.getElementById('btg-score-label');
+  const result = document.getElementById('btg-score-result');
+  if (fill) fill.style.width = pct + '%';
+  if (label) label.textContent = `${checked} / ${total} criteria met`;
+  if (result) {
+    if (checked >= 8) result.textContent = 'Strong BTG list ✓';
+    else if (checked >= 5) result.textContent = 'Solid foundations — gaps to address';
+    else result.textContent = 'Needs a rebuild — start with price ladder';
+  }
+}
+
+// ── MARGIN CALCULATOR ─────────────────────────────────────────────────────
+function calcMargin() {
+  const cost = parseFloat(document.getElementById('calc-cost')?.value);
+  const sell = parseFloat(document.getElementById('calc-sell')?.value);
+  const target = parseFloat(document.getElementById('calc-target')?.value) || 70;
+  const result = document.getElementById('calc-result');
+  const minPriceEl = document.getElementById('calc-min-price');
+  const gpEl = document.getElementById('calc-gp');
+  if (!result) return;
+  if (cost && target) {
+    const minPrice = cost / (1 - target / 100);
+    if (minPriceEl) minPriceEl.textContent = `Min sell price for ${target}% GP: £${minPrice.toFixed(2)}`;
+  }
+  if (cost && sell) {
+    const gp = ((sell - cost) / sell) * 100;
+    result.style.display = 'flex';
+    if (gpEl) {
+      gpEl.textContent = `${gp.toFixed(1)}%`;
+      gpEl.style.color = gp >= target ? '#00C67A' : '#F05F7C';
+    }
+  }
+}
+
+// ── WAGE CALCULATOR ───────────────────────────────────────────────────────
+function calcWage() {
+  const staff = parseFloat(document.getElementById('wage-staff')?.value);
+  const hours = parseFloat(document.getElementById('wage-hours')?.value);
+  const oldRate = parseFloat(document.getElementById('wage-old')?.value);
+  const gp = parseFloat(document.getElementById('wage-gp')?.value) || 65;
+  const result = document.getElementById('wage-result');
+  const valueEl = document.getElementById('wage-value');
+  const breakdownEl = document.getElementById('wage-breakdown');
+  if (!result) return;
+  if (staff && hours && oldRate) {
+    const newRate = 12.71;
+    const weeklyExtra = staff * hours * (newRate - oldRate);
+    const wineRevNeeded = weeklyExtra / (gp / 100);
+    result.style.display = 'flex';
+    if (valueEl) valueEl.textContent = `£${Math.ceil(wineRevNeeded)}`;
+    if (breakdownEl) breakdownEl.textContent = `Extra wage cost: £${weeklyExtra.toFixed(0)}/wk · At ${gp}% GP, you need £${Math.ceil(wineRevNeeded)} extra wine revenue to offset it.`;
+  }
+}
+
+// ── BTG CALCULATOR ────────────────────────────────────────────────────────
+function calcBTG() {
+  const cost    = parseFloat(document.getElementById('btg-cost')?.value);
+  const sizeEl  = document.getElementById('btg-size');
+  const size    = sizeEl ? parseFloat(sizeEl.value) : 175;
+  const sell    = parseFloat(document.getElementById('btg-sell')?.value);
+  const pours   = parseFloat(document.getElementById('btg-pours')?.value);
+  const wastage = parseFloat(document.getElementById('btg-wastage')?.value) || 8;
+  const result  = document.getElementById('btg-calc-result');
+  if (!result || !cost || !sell) return;
+
+  const effectivePours = (750 * (1 - wastage / 100)) / size;
+  const costPerServe   = cost / effectivePours;
+  const gp             = ((sell - costPerServe) / sell) * 100;
+  const profitPerGlass = sell - costPerServe;
+
+  result.style.display = 'block';
+  document.getElementById('btg-cost-serve').textContent  = `£${costPerServe.toFixed(2)}`;
+  const gpEl = document.getElementById('btg-gp-pct');
+  gpEl.textContent  = `${gp.toFixed(1)}%`;
+  gpEl.style.color  = gp >= 65 ? '#00C67A' : '#F05F7C';
+  document.getElementById('btg-profit-glass').textContent = `£${profitPerGlass.toFixed(2)}`;
+
+  if (pours) {
+    document.getElementById('btg-weekly-rev').textContent    = `£${(sell * pours * 7).toFixed(0)}`;
+    document.getElementById('btg-weekly-profit').textContent = `£${(profitPerGlass * pours * 7).toFixed(0)}`;
+  }
+
+  const warning = document.getElementById('btg-gp-warning');
+  if (gp < 65) {
+    const targetSell = costPerServe / (1 - 0.65);
+    warning.style.display = 'block';
+    warning.innerHTML = `<strong style="color:#F05F7C">Below target GP.</strong> At 65% target, your minimum sell price for a ${size}ml pour should be <strong style="color:#F05F7C">£${targetSell.toFixed(2)}</strong>.`;
+  } else {
+    warning.style.display = 'none';
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+renderTools('all');
+</script>
+</body>
+</html>
