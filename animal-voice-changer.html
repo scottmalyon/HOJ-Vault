@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animal Voice Changer — House of Juice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0A0A0A;color:#F0E8D5;font-family:'DM Sans','Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+
+.wrap{max-width:880px;margin:0 auto;padding:56px 24px 100px}
+
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#00C67A;margin-bottom:14px;text-align:center}
+h1{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:.95;letter-spacing:.04em;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.deck{font-size:15px;color:#B7AF9E;text-align:center;max-width:520px;margin:0 auto 44px}
+
+.card{background:#131211;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:28px;margin-bottom:24px}
+.card h2{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.08em;text-transform:uppercase;color:#F0E8D5;margin-bottom:16px}
+
+/* ── recorder ── */
+.rec-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.rec-btn{display:flex;align-items:center;gap:10px;background:#00C67A;color:#000;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;padding:14px 24px;border-radius:100px;cursor:pointer;transition:background .2s,transform .1s}
+.rec-btn:hover{background:#00E08A}
+.rec-btn:active{transform:scale(.97)}
+.rec-btn.stop{background:#E0473E}
+.rec-btn.stop:hover{background:#FF574C}
+.rec-btn:disabled{background:#333;color:#777;cursor:not-allowed}
+.rec-dot{width:10px;height:10px;border-radius:50%;background:#000}
+.rec-btn.stop .rec-dot{background:#fff;border-radius:2px}
+.rec-btn.armed .rec-dot{animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.timer{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:#F0E8D5;min-width:70px}
+.status-txt{font-size:12px;color:#8A8272}
+
+canvas#meter{flex:1;min-width:140px;height:44px;background:#0A0A0A;border-radius:6px;border:1px solid rgba(255,255,255,.06)}
+
+.orig-player{margin-top:20px}
+.orig-player audio{width:100%}
+.orig-player .lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8A8272;margin-bottom:8px}
+
+/* ── presets ── */
+.preset-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.preset{background:#0F0E0D;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:18px 12px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.preset:hover{border-color:rgba(0,198,122,.5);background:#151412}
+.preset:active{transform:scale(.97)}
+.preset.selected{border-color:#00C67A;background:rgba(0,198,122,.08);box-shadow:0 0 0 1px #00C67A inset}
+.preset.disabled{opacity:.35;pointer-events:none}
+.preset .emoji{font-size:34px;display:block;margin-bottom:8px}
+.preset .name{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#D4CCC0}
+
+/* ── result ── */
+.result-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.result-player{flex:1;min-width:220px}
+.result-player audio{width:100%}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:#F0E8D5;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.2);padding:12px 18px;border-radius:100px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:border-color .2s,background .2s}
+.btn-outline:hover{border-color:#00C67A;background:rgba(0,198,122,.08)}
+.btn-outline:disabled{opacity:.35;cursor:not-allowed}
+
+.processing{display:flex;align-items:center;gap:10px;color:#8A8272;font-size:12px}
+.spinner{width:14px;height:14px;border:2px solid rgba(240,232,213,.2);border-top-color:#00C67A;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.hint{font-size:12px;color:#6B6455;margin-top:14px;line-height:1.6}
+.hint strong{color:#B7AF9E}
+
+.err{background:rgba(224,71,62,.1);border:1px solid rgba(224,71,62,.35);color:#FF9A93;font-size:13px;padding:14px 16px;border-radius:8px;margin-bottom:24px;display:none}
+.err.show{display:block}
+
+footer{text-align:center;font-size:11px;color:#4A4438;margin-top:40px;letter-spacing:.04em}
+
+@media(max-width:600px){
+  h1{font-size:40px}
+  .card{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="eyebrow">House of Juice — Voice Lab</div>
+  <h1>Animal Voice Changer</h1>
+  <p class="deck">Record your voice, then morph it into a chipmunk, a bear, a cat and more — right in your browser. Nothing is uploaded anywhere; it never leaves this tab.</p>
+
+  <div class="err" id="errBox"></div>
+
+  <div class="card">
+    <h2>1 · Record</h2>
+    <div class="rec-row">
+      <button class="rec-btn armed" id="recBtn">
+        <span class="rec-dot"></span> <span id="recBtnLabel">Start Recording</span>
+      </button>
+      <div class="timer" id="timer">0:00</div>
+      <canvas id="meter" width="400" height="44"></canvas>
+    </div>
+    <div class="status-txt" id="statusTxt" style="margin-top:14px">Tap start and allow microphone access.</div>
+    <div class="orig-player" id="origPlayerWrap" style="display:none">
+      <div class="lbl">Your original recording</div>
+      <audio id="origPlayer" controls></audio>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2 · Pick an animal</h2>
+    <div class="preset-grid" id="presetGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>3 · Result</h2>
+    <div id="processingRow" class="processing" style="display:none">
+      <div class="spinner"></div> Transforming your voice…
+    </div>
+    <div class="result-row" id="resultRow" style="display:none">
+      <div class="result-player">
+        <audio id="resultPlayer" controls></audio>
+      </div>
+      <button class="btn-outline" id="downloadBtn">Download WAV</button>
+    </div>
+    <div class="hint" id="resultHint">Record something above, then choose an animal — your transformed clip will appear here.</div>
+  </div>
+
+  <footer>Runs 100% locally via the Web Audio API · no audio is ever sent to a server</footer>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  // ── animal presets ──────────────────────────────────────────
+  // rate: playback-rate multiplier (pitch + tempo shift, the classic
+  //       "chipmunk"-style transform). filters/distortion/vibrato layer
+  //       character on top so each animal reads distinctly.
+  const PRESETS = [
+    { id:'chipmunk', name:'Chipmunk', emoji:'🐿️', rate:1.9,
+      filters:[{type:'highpass',frequency:300,Q:0.7},{type:'peaking',frequency:2500,Q:1,gain:6}] },
+    { id:'mouse', name:'Mouse', emoji:'🐭', rate:2.3,
+      filters:[{type:'highpass',frequency:500,Q:0.7},{type:'peaking',frequency:3500,Q:1.2,gain:7}] },
+    { id:'bird', name:'Bird', emoji:'🐦', rate:2.1,
+      filters:[{type:'highpass',frequency:600,Q:0.7},{type:'peaking',frequency:4000,Q:1.5,gain:5}],
+      vibrato:{rate:9,depth:0.0025} },
+    { id:'cat', name:'Cat', emoji:'🐱', rate:1.55,
+      filters:[{type:'bandpass',frequency:1800,Q:0.6},{type:'peaking',frequency:2200,Q:1,gain:4}],
+      vibrato:{rate:6,depth:0.0018} },
+    { id:'dog', name:'Dog', emoji:'🐶', rate:0.82,
+      filters:[{type:'lowpass',frequency:2200,Q:0.7},{type:'peaking',frequency:400,Q:1,gain:5}],
+      distortion:14 },
+    { id:'cow', name:'Cow', emoji:'🐮', rate:0.62,
+      filters:[{type:'lowpass',frequency:1400,Q:1.1},{type:'peaking',frequency:300,Q:1,gain:6}],
+      distortion:22 },
+    { id:'bear', name:'Bear', emoji:'🐻', rate:0.5,
+      filters:[{type:'lowpass',frequency:1000,Q:1.3},{type:'peaking',frequency:200,Q:1,gain:7}],
+      distortion:35 },
+    { id:'elephant', name:'Elephant', emoji:'🐘', rate:0.42,
+      filters:[{type:'lowpass',frequency:800,Q:1.4},{type:'peaking',frequency:150,Q:1,gain:8}],
+      distortion:28 },
+  ];
+
+  // ── state ────────────────────────────────────────────────────
+  let audioCtx = null;
+  let mediaStream = null;
+  let mediaRecorder = null;
+  let recordedChunks = [];
+  let recordedBuffer = null;   // decoded AudioBuffer of the raw take
+  let selectedPreset = null;
+  let recording = false;
+  let timerInterval = null;
+  let recordStart = 0;
+  let analyser = null;
+  let meterRAF = null;
+
+  // ── dom ──────────────────────────────────────────────────────
+  const recBtn = document.getElementById('recBtn');
+  const recBtnLabel = document.getElementById('recBtnLabel');
+  const timerEl = document.getElementById('timer');
+  const statusTxt = document.getElementById('statusTxt');
+  const origPlayerWrap = document.getElementById('origPlayerWrap');
+  const origPlayer = document.getElementById('origPlayer');
+  const presetGrid = document.getElementById('presetGrid');
+  const processingRow = document.getElementById('processingRow');
+  const resultRow = document.getElementById('resultRow');
+  const resultPlayer = document.getElementById('resultPlayer');
+  const resultHint = document.getElementById('resultHint');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const errBox = document.getElementById('errBox');
+  const meterCanvas = document.getElementById('meter');
+  const meterCtx = meterCanvas.getContext('2d');
+
+  function showError(msg) {
+    errBox.textContent = msg;
+    errBox.classList.add('show');
+  }
+  function clearError() {
+    errBox.classList.remove('show');
+    errBox.textContent = '';
+  }
+
+  // ── build preset grid ───────────────────────────────────────
+  PRESETS.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'preset disabled';
+    el.dataset.id = p.id;
+    el.innerHTML = `<span class="emoji">${p.emoji}</span><span class="name">${p.name}</span>`;
+    el.addEventListener('click', () => selectPreset(p.id));
+    presetGrid.appendChild(el);
+  });
+
+  function setPresetsEnabled(enabled) {
+    document.querySelectorAll('.preset').forEach(el => {
+      el.classList.toggle('disabled', !enabled);
+    });
+  }
+
+  function selectPreset(id) {
+    if (!recordedBuffer) return;
+    selectedPreset = PRESETS.find(p => p.id === id);
+    document.querySelectorAll('.preset').forEach(el => {
+      el.classList.toggle('selected', el.dataset.id === id);
+    });
+    transform(selectedPreset);
+  }
+
+  // ── timer ────────────────────────────────────────────────────
+  function fmtTime(sec) {
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m}:${String(s).padStart(2, '0')}`;
+  }
+
+  // ── level meter ──────────────────────────────────────────────
+  function drawMeter() {
+    if (!analyser) return;
+    const data = new Uint8Array(analyser.frequencyBinCount);
+    analyser.getByteTimeDomainData(data);
+    const w = meterCanvas.width, h = meterCanvas.height;
+    meterCtx.clearRect(0, 0, w, h);
+    meterCtx.beginPath();
+    meterCtx.strokeStyle = '#00C67A';
+    meterCtx.lineWidth = 2;
+    const slice = w / data.length;
+    let x = 0;
+    for (let i = 0; i < data.length; i++) {
+      const v = data[i] / 128.0;
+      const y = (v * h) / 2;
+      i === 0 ? meterCtx.moveTo(x, y) : meterCtx.lineTo(x, y);
+      x += slice;
+    }
+    meterCtx.stroke();
+    meterRAF = requestAnimationFrame(drawMeter);
+  }
+
+  function stopMeter() {
+    if (meterRAF) cancelAnimationFrame(meterRAF);
+    meterRAF = null;
+    meterCtx.clearRect(0, 0, meterCanvas.width, meterCanvas.height);
+  }
+
+  // ── recording ────────────────────────────────────────────────
+  async function startRecording() {
+    clearError();
+    try {
+      mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (e) {
+      showError('Microphone access was denied or is unavailable. Allow microphone access in your browser and try again.');
+      return;
+    }
+
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') await audioCtx.resume();
+
+    const source = audioCtx.createMediaStreamSource(mediaStream);
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 1024;
+    source.connect(analyser);
+    drawMeter();
+
+    let mimeType = '';
+    for (const t of ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4']) {
+      if (window.MediaRecorder && MediaRecorder.isTypeSupported(t)) { mimeType = t; break; }
+    }
+    try {
+      mediaRecorder = mimeType ? new MediaRecorder(mediaStream, { mimeType }) : new MediaRecorder(mediaStream);
+    } catch (e) {
+      showError('This browser does not support audio recording (MediaRecorder unavailable).');
+      return;
+    }
+
+    recordedChunks = [];
+    mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
+    mediaRecorder.onstop = onRecordingStop;
+    mediaRecorder.start();
+
+    recording = true;
+    recordStart = Date.now();
+    timerInterval = setInterval(() => {
+      timerEl.textContent = fmtTime((Date.now() - recordStart) / 1000);
+    }, 200);
+
+    recBtn.classList.add('stop');
+    recBtn.classList.remove('armed');
+    recBtnLabel.textContent = 'Stop Recording';
+    statusTxt.textContent = 'Recording… speak into your microphone.';
+
+    resultRow.style.display = 'none';
+    resultHint.style.display = 'block';
+    resultHint.textContent = 'Record something above, then choose an animal — your transformed clip will appear here.';
+    setPresetsEnabled(false);
+    document.querySelectorAll('.preset').forEach(el => el.classList.remove('selected'));
+    selectedPreset = null;
+  }
+
+  function stopRecording() {
+    if (!mediaRecorder || mediaRecorder.state === 'inactive') return;
+    mediaRecorder.stop();
+    mediaStream.getTracks().forEach(t => t.stop());
+    clearInterval(timerInterval);
+    stopMeter();
+    recording = false;
+    recBtn.classList.remove('stop');
+    recBtn.classList.add('armed');
+    recBtnLabel.textContent = 'Start Recording';
+    statusTxt.textContent = 'Processing your recording…';
+    recBtn.disabled = true;
+  }
+
+  async function onRecordingStop() {
+    try {
+      const blob = new Blob(recordedChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+      const arrayBuffer = await blob.arrayBuffer();
+      recordedBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+      origPlayer.src = URL.createObjectURL(blob);
+      origPlayerWrap.style.display = 'block';
+
+      statusTxt.textContent = `Recorded ${fmtTime(recordedBuffer.duration)}. Pick an animal below.`;
+      setPresetsEnabled(true);
+    } catch (e) {
+      showError('Could not process that recording. Try recording again.');
+      statusTxt.textContent = 'Tap start and allow microphone access.';
+    } finally {
+      recBtn.disabled = false;
+    }
+  }
+
+  recBtn.addEventListener('click', () => {
+    if (recording) stopRecording();
+    else startRecording();
+  });
+
+  // ── transform ────────────────────────────────────────────────
+  function makeDistortionCurve(amount) {
+    const n = 44100;
+    const curve = new Float32Array(n);
+    const k = amount;
+    for (let i = 0; i < n; i++) {
+      const x = (i * 2) / n - 1;
+      curve[i] = ((3 + k) * x * 20 * (Math.PI / 180)) / (Math.PI + k * Math.abs(x));
+    }
+    return curve;
+  }
+
+  async function transform(preset) {
+    if (!recordedBuffer) return;
+    clearError();
+    processingRow.style.display = 'flex';
+    resultRow.style.display = 'none';
+    resultHint.style.display = 'none';
+
+    // yield a frame so the spinner paints before the (synchronous-ish) render
+    await new Promise(r => setTimeout(r, 30));
+
+    try {
+      const srcBuf = recordedBuffer;
+      const outSeconds = srcBuf.duration / preset.rate + 0.4;
+      const offlineCtx = new OfflineAudioContext(
+        srcBuf.numberOfChannels,
+        Math.ceil(outSeconds * srcBuf.sampleRate),
+        srcBuf.sampleRate
+      );
+
+      const src = offlineCtx.createBufferSource();
+      src.buffer = srcBuf;
+      src.playbackRate.value = preset.rate;
+
+      let node = src;
+
+      // optional vibrato: LFO-modulated delay
+      if (preset.vibrato) {
+        const delay = offlineCtx.createDelay();
+        delay.delayTime.value = preset.vibrato.depth;
+        const lfo = offlineCtx.createOscillator();
+        lfo.frequency.value = preset.vibrato.rate;
+        const lfoGain = offlineCtx.createGain();
+        lfoGain.gain.value = preset.vibrato.depth;
+        lfo.connect(lfoGain);
+        lfoGain.connect(delay.delayTime);
+        lfo.start();
+        node.connect(delay);
+        node = delay;
+      }
+
+      // formant-ish filters
+      (preset.filters || []).forEach(f => {
+        const filt = offlineCtx.createBiquadFilter();
+        filt.type = f.type;
+        filt.frequency.value = f.frequency;
+        if (f.Q !== undefined) filt.Q.value = f.Q;
+        if (f.gain !== undefined) filt.gain.value = f.gain;
+        node.connect(filt);
+        node = filt;
+      });
+
+      // distortion / growl
+      if (preset.distortion) {
+        const shaper = offlineCtx.createWaveShaper();
+        shaper.curve = makeDistortionCurve(preset.distortion);
+        shaper.oversample = '2x';
+        node.connect(shaper);
+        node = shaper;
+      }
+
+      // makeup gain so quieter/darker presets aren't inaudible
+      const outGain = offlineCtx.createGain();
+      outGain.gain.value = 1.15;
+      node.connect(outGain);
+      outGain.connect(offlineCtx.destination);
+
+      src.start();
+      const rendered = await offlineCtx.startRendering();
+      const wavBlob = audioBufferToWav(rendered);
+      const url = URL.createObjectURL(wavBlob);
+
+      resultPlayer.src = url;
+      resultRow.style.display = 'flex';
+      downloadBtn.onclick = () => {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${preset.id}-voice.wav`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      };
+      resultPlayer.play().catch(() => {}); // autoplay may be blocked; that's fine
+    } catch (e) {
+      showError('Something went wrong transforming that clip. Try a different animal or record again.');
+      resultHint.style.display = 'block';
+      resultHint.textContent = 'Record something above, then choose an animal — your transformed clip will appear here.';
+    } finally {
+      processingRow.style.display = 'none';
+    }
+  }
+
+  // ── AudioBuffer -> WAV (16-bit PCM) ─────────────────────────
+  function audioBufferToWav(buffer) {
+    const numCh = buffer.numberOfChannels;
+    const sampleRate = buffer.sampleRate;
+    const bytesPerSample = 2;
+    const blockAlign = numCh * bytesPerSample;
+    const numFrames = buffer.length;
+    const dataSize = numFrames * blockAlign;
+    const bufferSize = 44 + dataSize;
+    const ab = new ArrayBuffer(bufferSize);
+    const view = new DataView(ab);
+
+    function writeStr(offset, str) {
+      for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
+    }
+
+    writeStr(0, 'RIFF');
+    view.setUint32(4, 36 + dataSize, true);
+    writeStr(8, 'WAVE');
+    writeStr(12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true); // PCM
+    view.setUint16(22, numCh, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * blockAlign, true);
+    view.setUint16(32, blockAlign, true);
+    view.setUint16(34, 16, true);
+    writeStr(36, 'data');
+    view.setUint32(40, dataSize, true);
+
+    const channels = [];
+    for (let c = 0; c < numCh; c++) channels.push(buffer.getChannelData(c));
+
+    let offset = 44;
+    for (let i = 0; i < numFrames; i++) {
+      for (let c = 0; c < numCh; c++) {
+        let sample = Math.max(-1, Math.min(1, channels[c][i]));
+        sample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+        view.setInt16(offset, sample, true);
+        offset += 2;
+      }
+    }
+
+    return new Blob([ab], { type: 'audio/wav' });
+  }
+
+  // ── feature check ────────────────────────────────────────────
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
+    showError('Your browser does not support microphone recording. Try the latest Chrome, Edge, Firefox, or Safari.');
+    recBtn.disabled = true;
+  }
+})();
+</script>
+</body>
+</html>
