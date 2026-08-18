@@ -263,10 +263,29 @@ footer{text-align:center;font-size:11px;color:#4A4438;margin-top:40px;letter-spa
   // ── recording ────────────────────────────────────────────────
   async function startRecording() {
     clearError();
+
+    if (!window.isSecureContext) {
+      showError('This page was opened as a local file (file://), so your browser is blocking microphone access. ' +
+        'Serve it over http(s) instead — e.g. run "python3 -m http.server" in the folder and open ' +
+        'http://localhost:8000/animal-voice-changer.html — then reload and try again.');
+      return;
+    }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      showError('This browser does not expose microphone recording (mediaDevices.getUserMedia is unavailable). Try the latest Chrome, Edge, Firefox, or Safari over http(s).');
+      return;
+    }
+
     try {
       mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch (e) {
-      showError('Microphone access was denied or is unavailable. Allow microphone access in your browser and try again.');
+      console.error('getUserMedia failed:', e);
+      if (e && e.name === 'NotAllowedError') {
+        showError('Microphone access was denied. Click the mic/lock icon in your address bar, allow microphone access for this page, then try again.');
+      } else if (e && e.name === 'NotFoundError') {
+        showError('No microphone was found. Connect a microphone and try again.');
+      } else {
+        showError('Could not access the microphone (' + (e && e.name ? e.name : 'unknown error') + '). Check your browser\'s site permissions and try again.');
+      }
       return;
     }
 
@@ -502,7 +521,12 @@ footer{text-align:center;font-size:11px;color:#4A4438;margin-top:40px;letter-spa
   }
 
   // ── feature check ────────────────────────────────────────────
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
+  if (!window.isSecureContext) {
+    showError('This page was opened as a local file (file://), so your browser will block microphone access. ' +
+      'Serve it over http(s) instead — e.g. run "python3 -m http.server" in the folder and open ' +
+      'http://localhost:8000/animal-voice-changer.html — then reload this page.');
+    recBtn.disabled = true;
+  } else if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
     showError('Your browser does not support microphone recording. Try the latest Chrome, Edge, Firefox, or Safari.');
     recBtn.disabled = true;
   }
